@@ -1,0 +1,54 @@
+<!-- fragments/header.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <title>Visitor Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #00ff99;
+            font-family: "Fira Code", monospace;
+        }
+        .hacker-input {
+            background: black;
+            border: 1px solid #00ff99;
+            color: #00ff99;
+        }
+        .hacker-btn {
+            background: transparent;
+            border: 1px solid #00ff99;
+            color: #00ff99;
+        }
+        .hacker-btn:hover {
+            background: #00ff99;
+            color: black;
+        }
+        .neon-border {
+            border: 2px solid #00ff99;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        a {
+            color: #00ff99;
+        }
+        a:hover {
+            color: #ff00ff;
+        }
+    </style>
+</head>
+
+<body th:fragment="body">
+<nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-success mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand text-success" href="/">[ Visitor Management System ]</a>
+        <div>
+            <a href="/visitors" class="me-3">Visitors</a>
+            <a href="/admins" class="me-3">Admins</a>
+            <a href="/cards" class="me-3">Card Ops</a>
+            <a href="/otp" class="me-3">OTP</a>
+        </div>
+    </div>
+</nav>
+<div class="container">

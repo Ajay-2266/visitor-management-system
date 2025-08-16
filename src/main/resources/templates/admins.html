@@ -1,0 +1,52 @@
+<!-- templates/admins.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"></head>
+<body>
+<div th:replace="fragments/header :: body"></div>
+
+<h2>Admin Management</h2>
+
+<div class="neon-border mb-4">
+    <form th:action="@{/admins/add}" method="post">
+        <div class="mb-2">
+            <input class="form-control hacker-input" name="username" placeholder="Username" required>
+        </div>
+        <div class="mb-2">
+            <input type="password" class="form-control hacker-input" name="password" placeholder="Password" required>
+        </div>
+        <div class="mb-2">
+            <input class="form-control hacker-input" name="role" placeholder="Role (e.g., SUPER_ADMIN)" required>
+        </div>
+        <button class="hacker-btn btn" type="submit">Add Admin</button>
+    </form>
+</div>
+
+<h3>All Admins</h3>
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="a : ${admins}">
+            <td th:text="${a.id}"></td>
+            <td th:text="${a.username}"></td>
+            <td th:text="${a.role}"></td>
+            <td>
+                <form th:action="@{'/api/admins/' + ${a.id}}" method="post" style="display:inline-block;">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div th:replace="fragments/footer :: body"></div>
+</body>
+</html>

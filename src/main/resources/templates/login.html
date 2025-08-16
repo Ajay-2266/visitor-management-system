@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Visitor Management Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #00ff99;
+            font-family: "Fira Code", monospace;
+            overflow-x: hidden;
+        }
+
+        /* Fade-in + slide-up animation */
+        @keyframes fadeSlideUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Neon border pulse */
+        @keyframes neonPulse {
+            0% { box-shadow: 0 0 10px #00ff99; }
+            50% { box-shadow: 0 0 20px #ff00ff; }
+            100% { box-shadow: 0 0 10px #00ff99; }
+        }
+
+        .dashboard-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 50px;
+            gap: 20px;
+            animation: fadeSlideUp 1s ease-in-out forwards;
+        }
+
+        .card {
+            background-color: black;
+            border: 2px solid #00ff99;
+            width: 250px;
+            text-align: center;
+            animation: neonPulse 2s infinite alternate;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            opacity: 0;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.2s, 0s; }
+        .card:nth-child(2) { animation-delay: 0.4s, 0s; }
+        .card:nth-child(3) { animation-delay: 0.6s, 0s; }
+        .card:nth-child(4) { animation-delay: 0.8s, 0s; }
+
+        .card.show {
+            animation: fadeSlideUp 0.8s ease-in-out forwards, neonPulse 2s infinite alternate;
+        }
+
+        .card:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 25px #ff00ff;
+            border-color: #ff00ff;
+        }
+
+        .card-title {
+            color: #00ff99;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .card a {
+            display: block;
+            padding: 10px;
+            margin-top: 10px;
+            background: transparent;
+            border: 1px solid #00ff99;
+            border-radius: 5px;
+            color: #00ff99;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .card a:hover {
+            background: #00ff99;
+            color: black;
+        }
+
+        .card-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #ff00ff;
+        }
+
+        h1 {
+            text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99;
+            animation: fadeSlideUp 1s ease-in-out forwards;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container text-center mt-5">
+        <h1 class="mb-4">Visitor Management System</h1>
+        <p>Select your portal:</p>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="card p-3">
+            <div class="card-body">
+                <h5 class="card-title">Admin Portal</h5>
+                <div class="card-number" th:text="${adminCount}">0</div>
+                <p>Manage admins, roles, and system settings.</p>
+                <a href="/admins">Go</a>
+            </div>
+        </div>
+
+        <div class="card p-3">
+            <div class="card-body">
+                <h5 class="card-title">Visitor Portal</h5>
+                <div class="card-number" th:text="${visitorCount}">0</div>
+                <p>Track visitor logs and register new visitors.</p>
+                <a href="/visitors">Go</a>
+            </div>
+        </div>
+
+        <div class="card p-3">
+            <div class="card-body">
+                <h5 class="card-title">Card Operations</h5>
+                <div class="card-number" th:text="${cardCount}">0</div>
+                <p>Assign and manage access cards.</p>
+                <a href="/cards">Go</a>
+            </div>
+        </div>
+
+        <div class="card p-3">
+            <div class="card-body">
+                <h5 class="card-title">OTP Services</h5>
+                <div class="card-number" th:text="${otpCount}">0</div>
+                <p>Generate and validate OTP records.</p>
+                <a href="/otp">Go</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animate cards one by one after page load
+        document.addEventListener("DOMContentLoaded", () => {
+            const cards = document.querySelectorAll(".card");
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add("show");
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>

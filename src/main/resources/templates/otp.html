@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"></head>
+<body>
+<div th:replace="fragments/header :: body"></div>
+
+<h2>OTP Management</h2>
+
+<!-- Generate OTP -->
+<div class="neon-border mb-4">
+    <form th:action="@{/otp/generate}" method="post">
+        <div class="mb-2">
+            <input class="form-control hacker-input" name="phone" placeholder="Phone Number" required>
+        </div>
+        <button class="hacker-btn btn" type="submit">Generate OTP</button>
+    </form>
+</div>
+
+<!-- Verify OTP -->
+<div class="neon-border mb-4">
+    <form th:action="@{/otp/verify}" method="post">
+        <div class="mb-2">
+            <input class="form-control hacker-input" name="phone" placeholder="Phone Number" required>
+        </div>
+        <div class="mb-2">
+            <input class="form-control hacker-input" name="otpCode" placeholder="Enter OTP" required>
+        </div>
+        <button class="hacker-btn btn" type="submit">Verify OTP</button>
+    </form>
+</div>
+
+<!-- Message -->
+<div th:if="${message}">
+    <p th:text="${message}"></p>
+</div>
+
+<!-- List of OTPs -->
+<h3>All OTP Records</h3>
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>ID</th><th>Phone</th><th>OTP</th><th>Created At</th><th>Verified</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="o : ${otps}">
+            <td th:text="${o.id}"></td>
+            <td th:text="${o.phone}"></td>
+            <td th:text="${o.otp}"></td>
+            <td th:text="${o.createdAt}"></td>
+            <td th:text="${o.isverified}"></td>
+        </tr>
+    </tbody>
+</table>
+
+<div th:replace="fragments/footer :: body"></div>
+</body>
+</html>

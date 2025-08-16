@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"></head>
+<body class="bg-dark text-light">
+<div th:replace="fragments/header :: body"></div>
+
+<div class="container mt-4">
+    <h1 class="mb-3 text-neon">Card Operations</h1>
+
+    <div class="neon-border mb-4 p-3">
+        <form th:action="@{/cards/add}" th:object="${cardOperation}" method="post">
+            <div class="mb-2">
+                <input class="form-control hacker-input" th:field="*{cardNumber}" placeholder="Card Number" required>
+            </div>
+            <div class="mb-2">
+                <select class="form-control hacker-input" th:field="*{visitor.id}" required>
+                    <option value="">-- Select Visitor --</option>
+                    <option th:each="v : ${visitors}" th:value="${v.id}" th:text="${v.id + ' - ' + v.name}"></option>
+                </select>
+            </div>
+            <button class="hacker-btn btn w-100" type="submit">Assign Card</button>
+        </form>
+    </div>
+
+    <div class="row" th:if="${cards}">
+        <div class="col-md-4 mb-3" th:each="card : ${cards}">
+            <div class="card bg-dark text-light neon-border h-100">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="'Card: ' + ${card.cardNumber}"></h5>
+                    <p class="card-text"
+                       th:text="'Visitor ID: ' + (${card.visitor} == null ? 'N/A' : ${card.visitor.id})"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: body"></div>
+</body>
+</html>
