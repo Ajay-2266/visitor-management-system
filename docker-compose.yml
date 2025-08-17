@@ -1,23 +1,14 @@
 version: '3.8'
 services:
-  visitor-db:
-    image: postgres:15
-    container_name: visitor-db
-    environment:
-      POSTGRES_USER: vmsdb_c6sb_user
-      POSTGRES_PASSWORD: xoIO7NY97QWfmyRGBxwQfAX1FlO8dLqr
-      POSTGRES_DB: vmsdb_c6sb
-    ports:
-      - "5432:5432"
-
   visitor-management-system:
     build: .
     container_name: visitor-management-system
-    depends_on:
-      - visitor-db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://visitor-db:5432/vmsdb_c6sb
+      SPRING_DATASOURCE_URL: jdbc:postgresql://dpg-d2fgjr0gjchc73fkg260-a.render.com:5432/vmsdb_c6sb?sslmode=require
       SPRING_DATASOURCE_USERNAME: vmsdb_c6sb_user
       SPRING_DATASOURCE_PASSWORD: xoIO7NY97QWfmyRGBxwQfAX1FlO8dLqr
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+      PORT: 9999
     ports:
       - "9999:9999"
